@@ -1,0 +1,8 @@
+import {
+  "lizhentao/moonhook",
+  "moonbitlang/core/env",
+}
+
+options(
+  "is-main": true,
+)
