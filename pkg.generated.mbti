@@ -1,0 +1,98 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "lizhentao/moonhook"
+
+// Values
+pub fn demo_routes() -> Array[Route]
+
+pub fn dispatch_event(Array[Route], Map[String, Bool], WebhookEvent) -> DispatchReport
+
+pub fn duplicate_github_curl_command(Int, String) -> String
+
+pub fn github_curl_command(Int, String) -> String
+
+pub fn handle_generic(Array[Route], Map[String, Bool], WebhookRequest, VerificationConfig) -> Result[DispatchReport, MoonHookError]
+
+pub fn handle_github_demo(Array[Route], Map[String, Bool], WebhookRequest, VerificationConfig) -> Result[DispatchReport, MoonHookError]
+
+pub fn invalid_github_curl_command(Int, String) -> String
+
+pub fn parse_generic(WebhookRequest, VerificationConfig) -> Result[WebhookEvent, MoonHookError]
+
+pub fn parse_github_demo(WebhookRequest, VerificationConfig) -> Result[WebhookEvent, MoonHookError]
+
+pub fn parse_http_request(String) -> Result[HttpRequest, MoonHookError]
+
+pub fn process_http_request(HttpRequest, Array[Route], Map[String, Bool], Array[DispatchReport], VerificationConfig, Int) -> HttpResponse
+
+pub fn sample_generic_request(String) -> WebhookRequest
+
+pub fn sample_github_request(String) -> WebhookRequest
+
+pub fn sign_demo(String, Int, String) -> String
+
+pub fn verify_demo_signature(String, Int, String, String) -> Bool
+
+pub let version : String
+
+// Errors
+
+// Types and methods
+pub(all) struct DispatchReport {
+  provider : String
+  event_name : String
+  delivery_id : String
+  handlers : Array[String]
+  duplicate : Bool
+  payload_preview : String
+}
+
+pub(all) struct HttpRequest {
+  verb : String
+  path : String
+  headers : Map[String, String]
+  body : String
+}
+
+pub(all) struct HttpResponse {
+  status : Int
+  content_type : String
+  body : String
+}
+
+pub(all) struct MoonHookError {
+  stage : String
+  message : String
+}
+pub impl Show for MoonHookError
+
+pub(all) struct Route {
+  provider : String
+  event_name : String
+  handler : String
+}
+
+pub(all) struct VerificationConfig {
+  secret : String
+  tolerance_seconds : Int
+}
+pub fn VerificationConfig::default() -> Self
+
+pub(all) struct WebhookEvent {
+  provider : String
+  event_name : String
+  delivery_id : String
+  timestamp : Int
+  signature : String
+  payload : Json
+}
+
+pub(all) struct WebhookRequest {
+  provider : String
+  headers : Map[String, String]
+  body : String
+}
+
+// Type aliases
+
+// Traits
+

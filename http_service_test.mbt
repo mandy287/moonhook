@@ -51,3 +51,17 @@ test "process github webhook over http request" {
   assert_true(response.body.contains("\"ok\": true"))
   assert_true(response.body.contains("\"delivery\": \"gh-delivery-001\""))
 }
+
+///|
+test "invalid github curl command uses bad signature" {
+  let command = invalid_github_curl_command(4001, "demo")
+  assert_true(command.contains("/webhooks/github"))
+  assert_true(command.contains("X-Hub-Signature-Demo: mh1:invalid"))
+}
+
+///|
+test "duplicate github curl command keeps delivery id stable" {
+  let command = duplicate_github_curl_command(4001, "demo")
+  assert_true(command.contains("gh-delivery-repeat"))
+  assert_true(command.contains("duplicate=true"))
+}

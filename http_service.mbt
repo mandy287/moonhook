@@ -51,18 +51,42 @@ fn root_text(port : Int) -> String {
 
 ///|
 pub fn github_curl_command(port : Int, secret : String) -> String {
+  github_curl_command_with(port, secret, "gh-delivery-001", false)
+}
+
+///|
+pub fn invalid_github_curl_command(port : Int, secret : String) -> String {
+  github_curl_command_with(port, secret, "gh-delivery-invalid", true)
+}
+
+///|
+pub fn duplicate_github_curl_command(port : Int, secret : String) -> String {
+  let first = github_curl_command_with(
+    port, secret, "gh-delivery-repeat", false,
+  )
+  let second = github_curl_command_with(
+    port, secret, "gh-delivery-repeat", false,
+  )
+  first + "\n\n# Run the same request again to see duplicate=true\n" + second
+}
+
+///|
+fn github_curl_command_with(
+  port : Int,
+  secret : String,
+  delivery_id : String,
+  invalid_signature : Bool,
+) -> String {
   let request = sample_github_request(secret)
   let event = request.headers.get_or_default("x-github-event", "push")
-  let delivery = request.headers.get_or_default(
-    "x-github-delivery", "gh-delivery-001",
-  )
   let timestamp = request.headers.get_or_default(
     "x-moonhook-timestamp", "1723881605",
   )
-  let signature = request.headers.get_or_default(
-    "x-hub-signature-demo",
-    sign_demo(secret, 1723881605, request.body),
-  )
+  let signature = if invalid_signature {
+    "mh1:invalid"
+  } else {
+    sign_demo(secret, 1723881605, request.body)
+  }
   let out = StringBuilder()
   out.write_string("curl -i -X POST http://127.0.0.1:")
   out.write_string(port.to_string())
@@ -72,7 +96,7 @@ pub fn github_curl_command(port : Int, secret : String) -> String {
   out.write_string(event)
   out.write_string("' \\\n")
   out.write_string("  -H 'X-GitHub-Delivery: ")
-  out.write_string(delivery)
+  out.write_string(delivery_id)
   out.write_string("' \\\n")
   out.write_string("  -H 'X-MoonHook-Timestamp: ")
   out.write_string(timestamp)

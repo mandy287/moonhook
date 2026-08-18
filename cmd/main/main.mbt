@@ -12,6 +12,8 @@ fn usage() -> Unit {
       #|  replay       演示去重与重放流程
       #|  github-demo  运行 GitHub 风格适配 demo
       #|  github-curl  输出可直接测试的 GitHub 风格 curl 命令
+      #|  invalid-curl 输出验签失败场景的 curl 命令
+      #|  duplicate-curl 输出重复投递场景的 curl 命令
       #|  serve        启动本地 webhook MVP 服务（默认端口 4000）
       #|
       #|选项：
@@ -119,6 +121,18 @@ fn run_github_curl(port : Int) -> Unit {
 }
 
 ///|
+fn run_invalid_curl(port : Int) -> Unit {
+  let config = @moonhook.VerificationConfig::default()
+  println(@moonhook.invalid_github_curl_command(port, config.secret))
+}
+
+///|
+fn run_duplicate_curl(port : Int) -> Unit {
+  let config = @moonhook.VerificationConfig::default()
+  println(@moonhook.duplicate_github_curl_command(port, config.secret))
+}
+
+///|
 fn run_serve(port : Int) -> Unit {
   let config = @moonhook.VerificationConfig::default()
   let routes = @moonhook.demo_routes()
@@ -171,6 +185,22 @@ fn main {
     "github-demo" => run_github_demo()
     "github-curl" =>
       run_github_curl(
+        if args.length() > 2 {
+          parse_port(args[2])
+        } else {
+          4000
+        },
+      )
+    "invalid-curl" =>
+      run_invalid_curl(
+        if args.length() > 2 {
+          parse_port(args[2])
+        } else {
+          4000
+        },
+      )
+    "duplicate-curl" =>
+      run_duplicate_curl(
         if args.length() > 2 {
           parse_port(args[2])
         } else {
