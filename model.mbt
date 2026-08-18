@@ -20,6 +20,21 @@ pub(all) struct WebhookRequest {
 }
 
 ///|
+pub(all) struct HttpRequest {
+  verb : String
+  path : String
+  headers : Map[String, String]
+  body : String
+}
+
+///|
+pub(all) struct HttpResponse {
+  status : Int
+  content_type : String
+  body : String
+}
+
+///|
 pub(all) struct WebhookEvent {
   provider : String
   event_name : String
