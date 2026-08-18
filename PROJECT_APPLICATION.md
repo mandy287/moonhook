@@ -29,6 +29,7 @@ MoonHook 不重复实现通用 HTTP Web 框架，而是优先复用 MoonBit 生�
 - 实现基于 delivery id 的内存去重和事件路由分发；
 - 实现本地 HTTP `serve` 入口以及 `/health`、`/deliveries` 调试接口；
 - 提供可运行的 `demo`、`inspect`、`replay`、`github-demo`、`github-curl`、`serve` CLI 演示命令；
+- 提供验签失败和重复投递的可执行 `curl` 示例；
 - 提供 MoonBit 自动化测试和 GitHub Actions CI 骨架；
 - 提供中文 README，说明项目定位、当前范围、后续计划和开发命令；
 - 完成本项目申报书，明确首版边界、技术路线和交付目标。
@@ -46,6 +47,7 @@ MoonHook 不重复实现通用 HTTP Web 框架，而是优先复用 MoonBit 生�
 - 提供基于 `provider + event_name` 的路由匹配；
 - 提供基于 `provider + delivery_id` 的内存去重；
 - 提供 replay 演示能力，验证重复投递处理流程；
+- 提供有效请求、验签失败和重复投递的本地演示材料；
 - 提供 CLI 演示命令，用于检查、演示和答辩展示；
 - 提供 README、测试和 CI。
 
@@ -85,6 +87,7 @@ MoonHook 首版会做以下取舍：
 
 - 使用 MoonBit 原生包结构、类型系统、错误处理和测试方式组织代码，而不是把项目做成与某个单一 Web 框架强绑定的插件；
 - 优先完成请求模型、校验接口、路由分发、去重与 replay 等核心能力，并提供一个用于本地演示和调试的最小 HTTP 入口；
+- 本地 `serve` 命令优先支持 Linux/macOS native 环境，避免首版为跨平台 socket 兼容性过度扩张；
 - 首版提供 GitHub 风格请求头适配 demo 和通用事件模型，不一次性承诺支持大量第三方 provider；
 - 首版使用演示签名方案验证接口和调试流程，后续再逐步补充更完整的 HMAC-SHA256 验签；
 - 首版优先提供内存去重和 CLI 演示，不把数据库、消息队列、云服务或可视化后台同时纳入本期范围；
@@ -97,6 +100,7 @@ MoonHook 首版会做以下取舍：
 - 验签接口与演示签名实现；
 - 路由分发、delivery 去重、replay 演示；
 - CLI 演示程序；
+- GitHub 风格 WebHook MVP 示例文档；
 - 自动化测试；
 - 中文 README；
 - GitHub Actions CI；

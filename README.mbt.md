@@ -25,6 +25,18 @@ moon run --target native cmd/main -- github-curl 4010
 
 然后在另一个终端执行生成出来的 `curl` 命令，即可向本地服务发送一个 GitHub 风格 webhook 请求。
 
+## MVP 能力
+
+当前仓库已经具备可验收的最小链路：
+
+- 启动本地 HTTP 服务；
+- 接收真实 `POST /webhooks/github` 请求；
+- 解析 HTTP header 与 JSON payload；
+- 校验请求签名；
+- 按 provider 和 event 分发 handler；
+- 用 delivery id 识别重复投递；
+- 通过 `/health` 和 `/deliveries` 查看运行状态。
+
 ## 本地 MVP 演示
 
 1. 启动本地服务：
@@ -45,11 +57,25 @@ curl http://127.0.0.1:4010/health
 moon run --target native cmd/main -- github-curl 4010
 ```
 
-4. 执行该 `curl` 命令后，再查看已处理 delivery：
+4. 验证验签失败场景：
+
+```bash
+moon run --target native cmd/main -- invalid-curl 4010
+```
+
+5. 验证重复投递场景：
+
+```bash
+moon run --target native cmd/main -- duplicate-curl 4010
+```
+
+6. 执行生成的 `curl` 命令后，再查看已处理 delivery：
 
 ```bash
 curl http://127.0.0.1:4010/deliveries
 ```
+
+更完整的演示说明见 [examples/github-push.md](examples/github-push.md)。
 
 ## 命令
 
@@ -59,6 +85,8 @@ moonhook inspect      输出 GitHub 风格请求解析结果
 moonhook replay       演示 delivery 去重与重放
 moonhook github-demo  运行 GitHub 风格适配流程
 moonhook github-curl  输出可直接测试的 GitHub 风格 curl 命令
+moonhook invalid-curl 输出验签失败场景的 curl 命令
+moonhook duplicate-curl 输出重复投递场景的 curl 命令
 moonhook serve        启动本地 webhook MVP 服务
 ```
 
@@ -78,7 +106,7 @@ match @moonhook.handle_generic(routes, seen, request, config) {
 
 ## 当前范围
 
-当前版本已经提供本地 HTTP MVP，但仍然专注于框架无关核心，不宣称已经提供生产级签名安全能力。内置的 `mh1` 签名方案用于演示 MoonHook 的校验接口、分发模型和重放流程；后续计划在此基础上补充 HMAC-SHA256、文件持久化和实际 Web 框架适配器。
+当前版本已经提供本地 HTTP MVP，但仍然专注于框架无关核心，不宣称已经提供生产级签名安全能力。内置的 `mh1` 签名方案用于演示 MoonHook 的校验接口、分发模型和重放流程；`serve` 命令当前使用 POSIX socket C stub，优先支持 Linux/macOS native 环境。后续计划在此基础上补充 HMAC-SHA256、文件持久化和实际 Web 框架适配器。
 
 ## 计划演进
 
