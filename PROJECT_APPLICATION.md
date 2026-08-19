@@ -3,10 +3,10 @@
 ## 基本信息
 
 - 项目名称：MoonHook：MoonBit 原生 WebHook 处理核心与调试工具
-- 参赛者：zm200
+- 参赛者：mandy287
 - 联系方式：19864916652
 - GitHub 仓库链接：[mandy287/moonhook.git](https://github.com/mandy287/moonhook.git)
-- 归属说明：`zm200` 为报名参赛者名称，`mandy287` 为本项目使用的 GitHub 账号；MoonBit 模块名统一为 `mandy287/moonhook`。
+- 归属说明：参赛者名称、GitHub 仓库所有者和 MoonBit 模块名均统一为 `mandy287` / `mandy287/moonhook`。
 - 项目方向：MoonBit 开发工具 / WebHook 处理框架 / 事件集成基础设施
 - 是否为移植项目：否
 
