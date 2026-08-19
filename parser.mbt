@@ -128,7 +128,7 @@ pub fn sample_generic_request(secret : String) -> WebhookRequest {
 
 ///|
 pub fn sample_github_request(secret : String) -> WebhookRequest {
-  let body = "{\"repository\":{\"full_name\":\"lizhentao/moonhook\"},\"ref\":\"refs/heads/main\"}"
+  let body = "{\"repository\":{\"full_name\":\"mandy287/moonhook\"},\"ref\":\"refs/heads/main\"}"
   let timestamp = 1723881605
   {
     provider: "github",

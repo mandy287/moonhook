@@ -1,5 +1,5 @@
 // Generated using `moon info`, DON'T EDIT IT
-package "lizhentao/moonhook"
+package "mandy287/moonhook"
 
 // Values
 pub fn demo_routes() -> Array[Route]

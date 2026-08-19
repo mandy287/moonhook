@@ -1,7 +1,7 @@
 // Learn more about moon.mod configuration:
 // https://docs.moonbitlang.com/en/latest/toolchain/moon/module.html
 
-name = "lizhentao/moonhook"
+name = "mandy287/moonhook"
 
 version = "0.1.0"
 
