@@ -6,7 +6,7 @@
 - 参赛者：mandy287
 - 联系方式：19864916652
 - GitHub 仓库链接：[mandy287/moonhook.git](https://github.com/mandy287/moonhook.git)
-- 归属说明：参赛者名称、GitHub 仓库所有者和 MoonBit 模块名均统一为 `mandy287` / `mandy287/moonhook`。
+- MoonBit 模块名：`mandy287/moonhook`
 - 项目方向：MoonBit 开发工具 / WebHook 处理框架 / 事件集成基础设施
 - 是否为移植项目：否
 
